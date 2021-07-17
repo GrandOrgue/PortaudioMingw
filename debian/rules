@@ -20,7 +20,7 @@ override_dh_auto_configure:
 	for target in $(TARGETS); do \
 		mkdir build-$$target; \
 		cd build-$$target; \
-		tar xf $(CURDIR)/pa*.tgz --strip-components=1; \
+		cp -R $(CURDIR)/submodules/PortAudio/* ./; \
 		patch -p1 < $(CURDIR)/debian/patches/fix-wasapi-with-mingw64.diff; \
 		patch -p1 < $(CURDIR)/debian/patches/fix-wdmks-assert.diff; \
 		cp -r $(CURDIR)/debian/cmake/* .; \
