@@ -1,0 +1,11 @@
+Source: portaudio-mingw-w64
+Section: devel
+Priority: optional
+Maintainer: Tobias Junghans <totimaju@gmail.com>
+Build-Depends: debhelper (>= 9), g++-mingw-w64, cmake
+Standards-Version: 3.9.7
+
+Package: portaudio-mingw-w64
+Architecture: all
+Depends: ${misc:Depends}
+Description: PortAudio - Windows runtime and headers

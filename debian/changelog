@@ -1,0 +1,24 @@
+portaudio-mingw-w64 (19.600-20161030-4) bionic; urgency=medium
+
+  * Upload to Bionic
+
+ -- Tobias Junghans <totimaju@gmail.com>  Mon, 30 Jul 2018 08:39:25 +0200
+
+portaudio-mingw-w64 (19.600-20161030-3) artful; urgency=medium
+
+  * Install DLL in bin directory
+
+ -- Tobias Junghans <totimaju@gmail.com>  Wed, 18 Oct 2017 17:45:31 +0200
+
+portaudio-mingw-w64 (19.600-20161030-2) artful; urgency=medium
+
+  * Add missing build dependency
+
+ -- Tobias Junghans <totimaju@gmail.com>  Wed, 18 Oct 2017 07:50:32 +0200
+
+portaudio-mingw-w64 (19.600-20161030-1) artful; urgency=low
+
+  * Initial Release.
+
+ -- Tobias Junghans <totimaju@gmail.com>  Tue, 17 Oct 2017 18:52:32 +0200
+

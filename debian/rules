@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+
+export DH_OPTIONS
+export DEB_BUILD_MAINT_OPTIONS=hardening=-all,+fortify
+include /usr/share/dpkg/buildflags.mk
+
+TARGETS := i686-w64-mingw32 x86_64-w64-mingw32
+DESTDIR = $(CURDIR)/debian/portaudio-mingw-w64
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	for target in $(TARGETS); do \
+		rm -rf build-$$target; \
+	done
+	dh_auto_clean
+
+override_dh_auto_configure:
+	for target in $(TARGETS); do \
+		mkdir build-$$target; \
+		cd build-$$target; \
+		tar xf $(CURDIR)/pa*.tgz --strip-components=1; \
+		patch -p1 < $(CURDIR)/debian/patches/fix-wasapi-with-mingw64.diff; \
+		patch -p1 < $(CURDIR)/debian/patches/fix-wdmks-assert.diff; \
+		cp -r $(CURDIR)/debian/cmake/* .; \
+		chmod a+x build_$$target; \
+		./build_$$target; \
+		cd ..; \
+	done
+
+
+override_dh_auto_build:
+	for target in $(TARGETS); do \
+		cd build-$$target; \
+		$(MAKE); \
+		cd ..; \
+	done
+
+override_dh_auto_install:
+	for target in $(TARGETS); do \
+		cd build-$$target; \
+		$(MAKE) DESTDIR=$(DESTDIR) install; \
+		mkdir -p $(DESTDIR)/usr/$$target/bin; \
+		mv $(DESTDIR)/usr/$$target/lib/*.dll $(DESTDIR)/usr/$$target/bin/; \
+		cd ..; \
+	done
+
+override_dh_auto_test:
+

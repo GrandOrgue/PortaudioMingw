@@ -1,0 +1,4 @@
+MINGW=/usr/x86_64-w64-mingw32
+cmake . -DCMAKE_TOOLCHAIN_FILE=cmake_admin/Win64Toolchain.cmake -DCMAKE_MODULE_PATH=`pwd`/cmake_admin -DCMAKE_INSTALL_PREFIX=$MINGW -DCMAKE_BUILD_TYPE="Release"
+
+

@@ -1,0 +1,11 @@
++++ a/src/hostapi/wdmks/pa_win_wdmks.c	2017-10-17 19:23:51.293815352 +0200
+--- b/src/hostapi/wdmks/pa_win_wdmks.c	2016-10-30 02:23:04.000000000 +0100
+@@ -1717,7 +1717,7 @@ static PaWinWdmPin* PinNew(PaWinWdmFilte
+                 else
+                 {
+                     /* Must be the same */
+-                    assert(wcscmp(symbLinkName, pin->parentFilter->topologyFilter->devInfo.filterPath) == 0);
++                    //assert(wcscmp(symbLinkName, pin->parentFilter->topologyFilter->devInfo.filterPath) == 0);
+                 }
+ 
+                 PA_DEBUG(("PinNew: Opening topology filter..."));

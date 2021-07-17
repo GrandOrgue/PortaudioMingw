@@ -1,0 +1,60 @@
+diff -upr a/src/hostapi/wasapi/mingw-include/audioclient.h b/src/hostapi/wasapi/mingw-include/audioclient.h
+--- a/src/hostapi/wasapi/mingw-include/audioclient.h	2016-10-30 02:23:04.000000000 +0100
++++ b/src/hostapi/wasapi/mingw-include/audioclient.h	2017-10-17 19:03:23.231875869 +0200
+@@ -93,7 +93,7 @@ typedef interface IChannelAudioVolume IC
+ /* header files for imported files */
+ #include "wtypes.h"
+ #include "unknwn.h"
+-#include "AudioSessionTypes.h"
++#include "audiosessiontypes.h"
+ 
+ #ifdef __cplusplus
+ extern "C"{
+@@ -1130,7 +1130,6 @@ EXTERN_C const IID IID_IChannelAudioVolu
+ /* interface __MIDL_itf_audioclient_0000_0007 */
+ /* [local] */ 
+ 
+-#define FACILITY_AUDCLNT 0x889
+ #define AUDCLNT_ERR(n) MAKE_HRESULT(SEVERITY_ERROR, FACILITY_AUDCLNT, n)
+ #define AUDCLNT_SUCCESS(n) MAKE_SCODE(SEVERITY_SUCCESS, FACILITY_AUDCLNT, n)
+ #define AUDCLNT_E_NOT_INITIALIZED            AUDCLNT_ERR(0x001)
+diff -upr a/src/hostapi/wasapi/mingw-include/functiondiscoverykeys.h b/src/hostapi/wasapi/mingw-include/functiondiscoverykeys.h
+--- a/src/hostapi/wasapi/mingw-include/functiondiscoverykeys.h	2016-10-30 02:23:04.000000000 +0100
++++ b/src/hostapi/wasapi/mingw-include/functiondiscoverykeys.h	2017-10-17 19:07:45.372798726 +0200
+@@ -5,10 +5,11 @@
+ #endif
+ 
+ #ifndef DEFINE_API_PKEY
+-#include <propkey.h>
++#define DEFINE_API_PKEY(name, managed_name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8, pid) \
++		DEFINE_PROPERTYKEY(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8, pid)
+ #endif
+ 
+-#include <FunctionDiscoveryKeys_devpkey.h>
++#include <functiondiscoverykeys_devpkey.h>
+ 
+ // FMTID_FD = {904b03a2-471d-423c-a584-f3483238a146}
+ DEFINE_GUID(FMTID_FD, 0x904b03a2, 0x471d, 0x423c, 0xa5, 0x84, 0xf3, 0x48, 0x32, 0x38, 0xa1, 0x46);
+diff -upr a/src/hostapi/wasapi/pa_win_wasapi.c b/src/hostapi/wasapi/pa_win_wasapi.c
+--- a/src/hostapi/wasapi/pa_win_wasapi.c	2016-10-30 02:23:04.000000000 +0100
++++ b/src/hostapi/wasapi/pa_win_wasapi.c	2017-10-17 19:01:50.533583879 +0200
+@@ -55,17 +55,15 @@
+ 
+ // WASAPI
+ #include <mmreg.h>  // must be before other Wasapi headers
+-#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+-	#include <Avrt.h>
++	#include <avrt.h>
+ 	#define COBJMACROS
+-	#include <Audioclient.h>
++	#include <audioclient.h>
+ 	#include <endpointvolume.h>
+ 	#define INITGUID // Avoid additional linkage of static libs, excessive code will be optimized out by the compiler
+ 	#include <mmdeviceapi.h>
+ 	#include <functiondiscoverykeys.h>
+     #include <devicetopology.h>	// Used to get IKsJackDescription interface
+ 	#undef INITGUID
+-#endif
+ #ifndef __MWERKS__
+ 	#include <malloc.h>
+ 	#include <memory.h>
