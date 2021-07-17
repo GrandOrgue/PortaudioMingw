@@ -4,7 +4,7 @@ set -e
 
 sudo apt-get update
 #sudo DEBIAN_FRONTEND=noninteractive apt-get install -y debhelper g++-mingw-w64 cmake wget file mc build-essential dh-make
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y wget unzip debhelper g++-mingw-w64 cmake
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y wget unzip devscripts debhelper g++-mingw-w64 cmake
 
 # download and install ASIO sdk
 if [ ! -d /usr/local/asio-sdk ]; then
