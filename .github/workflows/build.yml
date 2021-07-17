@@ -68,7 +68,7 @@ jobs:
         submodules: true
     
     - name: Install Dependencies
-      run: ${{github.workspace}}/build-scripts/prepare-ubuntu.sh
+      run: ${{github.workspace}}/src/build-scripts/prepare-ubuntu.sh
       
     - name: Build
       working-directory: ${{github.workspace}}
